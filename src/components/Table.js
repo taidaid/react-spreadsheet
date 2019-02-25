@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import { Parser as FormulaParser } from "hot-formula-parser";
 import Row from "./Row";
 
 export default class Table extends Component {
   constructor(props) {
     super(props);
-
+    this.parser = new FormulaParser();
     this.state = {
       data: {}
     };
@@ -24,7 +25,7 @@ export default class Table extends Component {
   render() {
     const rows = [];
 
-    for (let y = 0; y < this.props.y + 1; y += 1) {
+    for (let y = 0; y <= this.props.y; y++) {
       const rowData = this.state.data[y] || {};
       rows.push(
         <Row
@@ -32,7 +33,7 @@ export default class Table extends Component {
           updateCells={this.updateCells}
           key={y}
           y={y}
-          x={this.props.x + 1}
+          x={this.props.x}
           rowData={rowData}
         />
       );

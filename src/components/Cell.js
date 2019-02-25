@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 
 /**
  * Cell represents the atomic element of a table
  */
-export default class Cell extends React.Component {
+export default class Cell extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -152,6 +152,13 @@ export default class Cell extends React.Component {
   };
 
   determineDisplay = ({ x, y }, value) => {
+    if (value.slice(0, 1) === "=") {
+      const res = this.props.executeFormula({ x, y }, value.slice(1));
+      if (res.error !== null) {
+        return "INVALID";
+      }
+      return res.result;
+    }
     return value;
   };
 
@@ -191,18 +198,14 @@ export default class Cell extends React.Component {
 
     // column 0
     if (this.props.x === 0) {
-      return <span style={css}>{this.props.y}</span>;
+      return <span style={css}>{this.props.y ? this.props.y : ""}</span>;
     }
 
     // row 0
     if (this.props.y === 0) {
       const alpha = " abcdefghijklmnopqrstuvwxyz".split("");
       return (
-        <span
-          onKeyPress={this.onKeyPressOnSpan}
-          style={css}
-          role="presentation"
-        >
+        <span style={css} role="presentation">
           {alpha[this.props.x]}
         </span>
       );

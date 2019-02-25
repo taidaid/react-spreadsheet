@@ -4,7 +4,7 @@ import Cell from "./Cell";
 const Row = props => {
   const cells = [];
   const y = props.y;
-  for (let x = 0; x < props.x; x += 1) {
+  for (let x = 0; x <= props.x; x++) {
     cells.push(
       <Cell
         key={`${x}-${y}`}
@@ -13,6 +13,7 @@ const Row = props => {
         onChangedValue={props.handleChangedCell}
         updateCells={props.updateCells}
         value={props.rowData[x] || ""}
+        executeFormula={props.executeFormula}
       />
     );
   }
