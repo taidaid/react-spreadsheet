@@ -8,6 +8,7 @@ export default class Cell extends Component {
     super(props);
     this.state = {
       editing: false,
+      selected: false,
       value: props.value
     };
     this.display = this.determineDisplay(
@@ -46,6 +47,30 @@ export default class Cell extends Component {
    */
   componentWillUnmount() {
     window.document.removeEventListener("unselectAll", this.handleUnselectAll);
+  }
+
+  /**
+   * Performance lifesaver as the cell not touched by a change can
+   * decide to avoid a rerender
+   */
+  shouldComponentUpdate(nextProps, nextState) {
+    // Has a formula value? could be affected by any change. Update
+    if (this.state.value !== "" && this.state.value.slice(0, 1) === "=") {
+      return true;
+    }
+
+    // Its own state values changed? Update
+    // Its own value prop changed? Update
+    if (
+      nextState.value !== this.state.value ||
+      nextState.editing !== this.state.editing ||
+      nextState.selected !== this.state.selected ||
+      nextProps.value !== this.props.value
+    ) {
+      return true;
+    }
+
+    return false;
   }
 
   /**
@@ -193,6 +218,10 @@ export default class Cell extends Component {
     return css;
   };
 
+  fillTopbar = ({ x, y }, value) => {
+    this.props.fillTopbar({ x, y }, value);
+  };
+
   render() {
     const css = this.calculateCss();
 
@@ -214,6 +243,9 @@ export default class Cell extends Component {
     if (this.state.selected) {
       css.outlineColor = "lightblue";
       css.outlineStyle = "dotted";
+      const x = this.props.x;
+      const y = this.props.y;
+      this.fillTopbar({ x, y }, this.state.value);
     }
 
     if (this.state.editing) {

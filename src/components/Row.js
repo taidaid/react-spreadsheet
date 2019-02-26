@@ -13,6 +13,7 @@ const Row = props => {
         onChangedValue={props.handleChangedCell}
         updateCells={props.updateCells}
         value={props.rowData[x] || ""}
+        fillTopbar={props.fillTopbar}
         executeFormula={props.executeFormula}
       />
     );
