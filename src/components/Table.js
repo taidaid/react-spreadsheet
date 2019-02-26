@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Parser as FormulaParser } from "hot-formula-parser";
 import Row from "./Row";
-import Topbar from "./Topbar";
+// import Topbar from "./Topbar";
 
 export default class Table extends Component {
 	constructor(props) {
