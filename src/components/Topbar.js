@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Topbar = props => {
   const [value, setValue] = useState("");
+
+  useEffect(() => {
+    setValue(props.value);
+  });
 
   const handleChangeValue = e => {
     const newValue = e.target.value;

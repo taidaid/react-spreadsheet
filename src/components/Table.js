@@ -7,6 +7,7 @@ export default class Table extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      topbar: "",
       data: {}
     };
     this.tableIdentifier = `tableData-${props.id}`;
@@ -91,8 +92,11 @@ export default class Table extends Component {
    * If more than one cell is selected, fill Topbar with indicating message
    */
   fillTopbar = (cell, value) => {
-    if (!cell || !value) return "";
-    console.log("Topbar");
+    console.log("Topbar ", value);
+    if (!cell || !value) {
+      return "";
+    }
+    this.setState({ topbar: value });
     return value;
   };
 
@@ -156,7 +160,7 @@ export default class Table extends Component {
     // const topbarWithValue = <Topbar value={this.fillTopbar()} />;
     return (
       <div>
-        <Topbar value={this.fillTopbar()} />
+        <Topbar value={this.state.topbar} />
         <div>{rows}</div>
       </div>
     );
