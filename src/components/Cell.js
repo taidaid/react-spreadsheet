@@ -135,7 +135,6 @@ export default class Cell extends Component {
 		// TODO: calculate which cell should be selected and pass along appropriate coords
 		// this.props.setNewSelectedCell({ x, y });
 		// console.log(this.props.x, this.props.y);
-		console.log();
 	};
 
 	/**
