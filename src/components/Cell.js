@@ -130,8 +130,8 @@ export default class Cell extends Component {
 		if (e.key.slice(0, 5) === "Arrow") {
 			this.setState({ selected: false, editing: false });
 		}
-		const x = this.props.x;
-		const y = this.props.y;
+		// const x = this.props.x;
+		// const y = this.props.y;
 		// TODO: calculate which cell should be selected and pass along appropriate coords
 		// this.props.setNewSelectedCell({ x, y });
 		// console.log(this.props.x, this.props.y);
@@ -259,8 +259,8 @@ export default class Cell extends Component {
 		if (this.state.selected) {
 			css.outlineColor = "lightblue";
 			css.outlineStyle = "dotted";
-			const x = this.props.x;
-			const y = this.props.y;
+			// const x = this.props.x;
+			// const y = this.props.y;
 			// this.fillTopbar({ x, y }, this.state.value);
 		}
 
