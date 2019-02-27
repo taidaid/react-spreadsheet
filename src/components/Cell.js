@@ -41,6 +41,11 @@ export default class Cell extends Component {
 		);
 	}
 
+	componentDidUpdate() {
+		if (this.state.selected)
+			window.document.addEventListener("keydown", this.handleArrowKey);
+	}
+
 	/**
 	 * Remove the `unselectAll` event listener added in
 	 * `componentDidMount()`
@@ -119,6 +124,18 @@ export default class Cell extends Component {
 		if (this.state.selected || this.state.editing) {
 			this.setState({ selected: false, editing: false });
 		}
+	};
+
+	handleArrowKey = e => {
+		if (e.key.slice(0, 5) === "Arrow") {
+			this.setState({ selected: false, editing: false });
+		}
+		const x = this.props.x;
+		const y = this.props.y;
+		// TODO: calculate which cell should be selected and pass along appropriate coords
+		// this.props.setNewSelectedCell({ x, y });
+		// console.log(this.props.x, this.props.y);
+		console.log();
 	};
 
 	/**
@@ -219,7 +236,7 @@ export default class Cell extends Component {
 	};
 
 	// fillTopbar = ({ x, y }, value) => {
-	//   this.props.fillTopbar({ x, y }, value);
+	// 	this.props.fillTopbar({ x, y }, value);
 	// };
 
 	render() {

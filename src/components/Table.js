@@ -7,9 +7,10 @@ export default class Table extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			topbar: "",
+			// topbar: "",
 			data: {}
 		};
+		// this.fillTopbar = this.fillTopbar.bind(this);
 		this.tableIdentifier = `tableData-${props.id}`;
 		this.parser = new FormulaParser();
 		// When a formula contains a cell value, this event lets us
@@ -76,7 +77,6 @@ export default class Table extends Component {
 				done(fragment);
 			}
 		});
-		this.fillTopbar = this.fillTopbar.bind(this);
 	}
 
 	componentWillMount() {
@@ -91,14 +91,14 @@ export default class Table extends Component {
 	 * Using (this.state.selected === true) as trigger for filling Topbar with value of selected cell
 	 * If more than one cell is selected, fill Topbar with indicating message
 	 */
-	fillTopbar = (cell, value) => {
-		console.log("Topbar ", value);
-		if (!cell || !value) {
-			return "";
-		}
-		this.setState({ topbar: value });
-		return value;
-	};
+	// fillTopbar = (cell, value) => {
+	// 	console.log("Topbar ", value);
+	// 	if (!cell || !value) {
+	// 		return "";
+	// 	}
+	// 	this.setState({ topbar: value });
+	// 	return value;
+	// };
 
 	/**
 	 * Executes the formula on the `value` using the
