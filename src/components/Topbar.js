@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Topbar = props => {
-  const [value, setValue] = useState("");
+	// const handleChangeValue = e => {
+	// 	const newValue = e.target.value;
+	// };
 
-  useEffect(() => {
-    setValue(props.value);
-  });
-
-  const handleChangeValue = e => {
-    const newValue = e.target.value;
-    setValue(newValue);
-  };
-  return (
-    <div>
-      <input type="text" value={value} onChange={e => handleChangeValue(e)} />
-    </div>
-  );
+	return (
+		<div>
+			<input
+				type="text"
+				value={props.value}
+				// onChange={e => handleChangeValue(e)}
+			/>
+		</div>
+	);
 };
 
 export default Topbar;

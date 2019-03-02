@@ -41,6 +41,11 @@ export default class Cell extends Component {
     );
   }
 
+  componentDidUpdate() {
+    if (this.state.selected)
+      window.document.addEventListener("keydown", this.handleArrowKey);
+  }
+
   /**
    * Remove the `unselectAll` event listener added in
    * `componentDidMount()`
@@ -121,6 +126,17 @@ export default class Cell extends Component {
     }
   };
 
+  handleArrowKey = e => {
+    if (e.key.slice(0, 5) === "Arrow") {
+      this.setState({ selected: false, editing: false });
+    }
+    // const x = this.props.x;
+    // const y = this.props.y;
+    // TODO: calculate which cell should be selected and pass along appropriate coords
+    // this.props.setNewSelectedCell({ x, y });
+    // console.log(this.props.x, this.props.y);
+  };
+
   /**
    * Called by the `onBlur` or `onKeyPressOnInput` event handlers,
    * it escalates the value changed event, and restore the editing
@@ -187,6 +203,23 @@ export default class Cell extends Component {
     return value;
   };
 
+  fillTopbar = ({ x, y }, value) => {
+    this.props.fillTopbar({ x, y }, value);
+  };
+  //set column headers, if number of columns exceeds alphabet, begin doubling, tripling, etc.
+  calculateColLabels = indexOfCol => {
+    const alpha = "abcdefghijklmnopqrstuvwxyz".split("");
+    indexOfCol -= 1;
+
+    // NEED TO MAKE THE COLUMN LABELS GO "AB", "AC", "AD", ETC.
+    const col = alpha[indexOfCol];
+
+    //if indexOfCol is greather than the length of the alphabet, subtract the length of the alphabet from it. Continue
+    // subtracting the length of the alphabet from it and increasing an iterator until the indexOfCol is less than the length of the alphabet
+    //
+
+    return col;
+  };
   /**
    * Calculates a cell's CSS values
    */
@@ -218,23 +251,6 @@ export default class Cell extends Component {
     return css;
   };
 
-  fillTopbar = ({ x, y }, value) => {
-    this.props.fillTopbar({ x, y }, value);
-  };
-  //set column headers, if number of columns exceeds alphabet, begin doubling, tripling, etc.
-  calculateColLabels = indexOfCol => {
-    const alpha = "abcdefghijklmnopqrstuvwxyz".split("");
-    indexOfCol -= 1;
-
-    // NEED TO MAKE THE COLUMN LABELS GO "AB", "AC", "AD", ETC.
-    const col = alpha[indexOfCol];
-    //if indexOfCol is greather than the length of the alphabet, subtract the length of the alphabet from it. Continue
-    // subtracting the length of the alphabet from it and increasing an iterator until the indexOfCol is less than the length of the alphabet
-    //
-
-    return col;
-  };
-
   render() {
     const css = this.calculateCss();
 
@@ -245,10 +261,10 @@ export default class Cell extends Component {
 
     // row 0
     if (this.props.y === 0) {
-      const col = this.calculateColLabels(this.props.x);
+      const alpha = " abcdefghijklmnopqrstuvwxyz".split("");
       return (
         <span style={css} role="presentation">
-          {col}
+          {alpha[this.props.x]}
         </span>
       );
     }
@@ -256,9 +272,9 @@ export default class Cell extends Component {
     if (this.state.selected) {
       css.outlineColor = "lightblue";
       css.outlineStyle = "dotted";
-      const x = this.props.x;
-      const y = this.props.y;
-      this.fillTopbar({ x, y }, this.state.value);
+      // const x = this.props.x;
+      // const y = this.props.y;
+      // this.fillTopbar({ x, y }, this.state.value);
     }
 
     if (this.state.editing) {

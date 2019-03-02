@@ -1,3 +1,7 @@
+# react-spreadsheet
+Built with React.js, this app allows a user to create a spreadsheet and calculate using values set in cells.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
