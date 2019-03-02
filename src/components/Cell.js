@@ -206,19 +206,18 @@ export default class Cell extends Component {
   fillTopbar = ({ x, y }, value) => {
     this.props.fillTopbar({ x, y }, value);
   };
-  //set column headers, if number of columns exceeds alphabet, begin doubling, tripling, etc.
+  //set column headers, if number of columns exceeds alphabet, begin doing "AA", "AB", "AC".
   calculateColLabels = indexOfCol => {
-    const alpha = "abcdefghijklmnopqrstuvwxyz".split("");
-    indexOfCol -= 1;
+    var baseChar = "A".charCodeAt(0),
+      letters = "";
 
-    // NEED TO MAKE THE COLUMN LABELS GO "AB", "AC", "AD", ETC.
-    const col = alpha[indexOfCol];
+    do {
+      indexOfCol -= 1;
+      letters = String.fromCharCode(baseChar + (indexOfCol % 26)) + letters;
+      indexOfCol = (indexOfCol / 26) >> 0; // quick `floor`
+    } while (indexOfCol > 0);
 
-    //if indexOfCol is greather than the length of the alphabet, subtract the length of the alphabet from it. Continue
-    // subtracting the length of the alphabet from it and increasing an iterator until the indexOfCol is less than the length of the alphabet
-    //
-
-    return col;
+    return letters;
   };
   /**
    * Calculates a cell's CSS values
@@ -261,10 +260,9 @@ export default class Cell extends Component {
 
     // row 0
     if (this.props.y === 0) {
-      const alpha = " abcdefghijklmnopqrstuvwxyz".split("");
       return (
         <span style={css} role="presentation">
-          {alpha[this.props.x]}
+          {this.calculateColLabels(this.props.x)}
         </span>
       );
     }
