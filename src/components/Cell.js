@@ -206,7 +206,14 @@ export default class Cell extends Component {
   fillTopbar = ({ x, y }, value) => {
     this.props.fillTopbar({ x, y }, value);
   };
+
   //set column headers, if number of columns exceeds alphabet, begin doing "AA", "AB", "AC".
+  /*
+   * The reason >> works is because it operates only on 32-bit integers, so the value is truncated.
+   * (It's also commonly used in cases like these instead of Math.floor because bitwise operators have a low operator precedence,
+   * so you can avoid a mess of parentheses.)
+   * And since it operates only on 32-bit integers, it's also equivalent to a mask with 0xffffffff after rounding.
+   */
   calculateColLabels = indexOfCol => {
     var baseChar = "A".charCodeAt(0),
       letters = "";
