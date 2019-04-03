@@ -22,31 +22,34 @@ class App extends React.Component {
 
   render() {
     return (
-      <Router>
-        <Switch>
-          <Route
-            path="/table"
-            render={({ history }) => (
-              <div id="App" style={{ width: "max-content" }}>
-                <Table
-                  x={this.state.cols}
-                  y={this.state.rows}
-                  id={"1"}
+      <>
+        <h3>React Spreadsheet</h3>
+        <Router>
+          <Switch>
+            <Route
+              path="/table"
+              render={({ history }) => (
+                <div id="App" style={{ width: "max-content" }}>
+                  <Table
+                    x={this.state.cols}
+                    y={this.state.rows}
+                    id={"1"}
+                    history={history}
+                  />
+                </div>
+              )}
+            />
+            <Route
+              render={({ history }) => (
+                <TableForm
                   history={history}
+                  setTableRowsAndColumns={this.setTableRowsAndColumns}
                 />
-              </div>
-            )}
-          />
-          <Route
-            render={({ history }) => (
-              <TableForm
-                history={history}
-                setTableRowsAndColumns={this.setTableRowsAndColumns}
-              />
-            )}
-          />
-        </Switch>
-      </Router>
+              )}
+            />
+          </Switch>
+        </Router>
+      </>
     );
   }
 }

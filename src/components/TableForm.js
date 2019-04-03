@@ -21,7 +21,7 @@ const TableForm = props => {
   };
 
   return (
-    <form onSubmit={e => handleSubmit(e)}>
+    <form className="tableForm" onSubmit={e => handleSubmit(e)}>
       <label>
         Rows:
         <input

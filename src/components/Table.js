@@ -138,15 +138,12 @@ export default class Table extends Component {
     this.forceUpdate();
   };
 
-  handleNewTable = () => {
-    this.props.history.push("/");
-  };
+  // handleNewTable = () => {
+  //   this.props.history.push("/");
+  // };
 
   render() {
     const rows = [];
-    const tableSetup = (
-      <button onClick={this.handleNewTable}>Setup New Table</button>
-    );
 
     for (let y = 0; y <= this.props.y; y++) {
       const rowData = this.state.data[y] || {};
@@ -154,6 +151,7 @@ export default class Table extends Component {
         <Row
           handleChangedCell={this.handleChangedCell}
           updateCells={this.updateCells}
+          history={this.props.history}
           key={y}
           y={y}
           x={this.props.x}
@@ -166,10 +164,9 @@ export default class Table extends Component {
 
     // const topbarWithValue = <Topbar value={this.fillTopbar()} />;
     return (
-      <div>
+      <div className="tableAndButton">
         {/* <Topbar value={this.state.topbar} /> */}
-        <div>{rows}</div>
-        <div>{tableSetup}</div>
+        <div className="table">{rows}</div>
       </div>
     );
   }

@@ -257,12 +257,23 @@ export default class Cell extends Component {
     return css;
   };
 
+  handleNewTable = () => {
+    this.props.history.push("/");
+  };
+
   render() {
     const css = this.calculateCss();
+    const tableSetup = (
+      <button onClick={this.handleNewTable}>Setup New Table</button>
+    );
 
     // column 0
     if (this.props.x === 0) {
-      return <span style={css}>{this.props.y ? this.props.y : ""}</span>;
+      return (
+        <span style={css}>
+          {this.props.y ? this.props.y : <div>{tableSetup}</div>}
+        </span>
+      );
     }
 
     // row 0
